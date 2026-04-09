@@ -76,7 +76,7 @@ cat boot.bin stage2.bin > bootloader.bin
 make bootloader
 
 # Test in QEMU
-qemu-system-x86_64 -drive format=raw,file=bootloader.bin
+qemu-system-PAE-32/64 hybrid mapping -drive format=raw,file=bootloader.bin
 ```
 
 ## References

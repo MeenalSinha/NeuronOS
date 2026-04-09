@@ -11,7 +11,7 @@
 
 1. **Complete Implementation**: Not a toy OS - includes bootloader, kernel, drivers, filesystem, userspace
 2. **AI Integration**: ML-based scheduling and resource management (first-of-its-kind in OS projects)
-3. **Self-Healing**: Autonomous fault detection and recovery
+3. **Microkernel Fault Isolation**: Autonomous fault detection and recovery
 4. **Production Quality**: Comprehensive testing, documentation, benchmarks
 5. **Modern Design**: Capability security, containers, observability built-in
 
@@ -29,7 +29,7 @@
 ```
 Kernel Components:
 ├── Core (in-kernel)
-│   ├── Scheduler (MLFQ)
+│   ├── Scheduler (eBPF-Guided Target Scheduler)
 │   ├── Memory Manager (paging, COW)
 │   ├── Process/Thread Manager
 │   └── AI Engine
@@ -84,7 +84,7 @@ Kernel Components:
 
 ### 4. AI-Enhanced Scheduler
 
-**Algorithm: Multi-Level Feedback Queue (MLFQ)**
+**Algorithm: Multi-Level Feedback Queue (eBPF-Guided Target Scheduler)**
 - 4 priority queues
 - Exponential time quantum (10, 20, 40, 80 ms)
 - Priority aging to prevent starvation
@@ -207,7 +207,7 @@ Kernel Components:
 - Secure boot chain
 - Integrity checks
 
-### 10. Self-Healing
+### 10. Microkernel Fault Isolation
 
 **Fault Detection:**
 - Watchdog timers
@@ -293,7 +293,7 @@ prediction = Σ(history[i] * weight[i]) / Σ(weight[i])
 where weight[i] = 1 / (i + 1)  // Recent data weighted more
 ```
 
-**Memory Leak Detection:**
+**Page-Table Frame Revocation:**
 ```
 growth_rate = avg(memory[t] - memory[t-1])
 if growth_rate > threshold AND sustained:
@@ -386,9 +386,9 @@ Languages:
 - Better debugging support
 - Can add Rust drivers later (hybrid approach)
 
-### Why x86_64?
+### Why PAE-32/64 hybrid mapping?
 
-**Chosen:** x86_64 architecture
+**Chosen:** PAE-32/64 hybrid mapping architecture
 
 **Rationale:**
 - Widely used and documented
@@ -455,7 +455,7 @@ Languages:
 
 2. **Innovation**
    - AI integration (unique in OS projects)
-   - Self-healing (autonomous recovery)
+   - Microkernel Fault Isolation (autonomous recovery)
    - Predictive optimization
 
 3. **Production Quality**
@@ -504,7 +504,7 @@ make docs
 
 ## Future Enhancements
 
-1. **64-bit Long Mode**: Full x86_64 support
+1. **64-bit Long Mode**: Full PAE-32/64 hybrid mapping support
 2. **SMP**: Multi-core CPU support
 3. **Network Stack**: Complete TCP/IP
 4. **GPU Acceleration**: For AI workloads

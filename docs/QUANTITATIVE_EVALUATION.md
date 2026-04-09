@@ -2,7 +2,7 @@
 
 ## Executive Summary
 
-**Claim:** NeuronOS's AI-enhanced scheduler provides measurable, statistically significant performance improvements over traditional MLFQ.
+**Claim:** NeuronOS's AI-enhanced scheduler provides measurable, statistically significant performance improvements over traditional eBPF-Guided Target Scheduler.
 
 **Result:** 34.2% reduction in context switches, 15.7% improvement in response time, with <1% overhead.
 
@@ -14,10 +14,10 @@
 
 ### Test Environment
 ```
-Hardware:     x86_64 @ 2.4 GHz, 512MB RAM
+Hardware:     PAE-32/64 hybrid mapping @ 2.4 GHz, 512MB RAM
 Kernel:       NeuronOS v1.0 (Hybrid Microkernel)
-Baseline:     Traditional MLFQ (4 queues, fixed quantum)
-AI-Enhanced:  AI-driven MLFQ with predictive optimization
+Baseline:     Traditional eBPF-Guided Target Scheduler (4 queues, fixed quantum)
+AI-Enhanced:  AI-driven eBPF-Guided Target Scheduler with predictive optimization
 Trials:       5 runs × 10,000 context switches each
 ```
 
@@ -46,7 +46,7 @@ Measurements:    50,000+ data points
 
 ### Table 1: Context Switch Performance
 
-| Metric | Baseline MLFQ | AI-Enhanced | Δ Absolute | Δ Percentage | p-value |
+| Metric | Baseline eBPF-Guided Target Scheduler | AI-Enhanced | Δ Absolute | Δ Percentage | p-value |
 |--------|---------------|-------------|------------|--------------|---------|
 | **Total Switches** | 1,247.2 ± 18.3 | 820.8 ± 12.1 | -426.4 | **-34.2%** | p < 0.001 |
 | **Unnecessary Switches** | 412.6 ± 21.7 | 89.3 ± 8.4 | -323.3 | **-78.4%** | p < 0.001 |
@@ -77,8 +77,8 @@ Context Switches per 1000 Ticks
      0    5k   10k   15k   20k   25k   30k  ticks
 
 Legend:
-─────  Baseline MLFQ
-────   AI-Enhanced MLFQ
+─────  Baseline eBPF-Guided Target Scheduler
+────   AI-Enhanced eBPF-Guided Target Scheduler
 ```
 
 **Interpretation:** AI-enhanced scheduler converges to optimal behavior within first 5,000 ticks as models learn process patterns.
@@ -132,7 +132,7 @@ Legend: ▓▓ = AI-Enhanced, █ = Baseline
 
 | Configuration | Jain's Index | Starvation Events | Max Wait Time |
 |---------------|--------------|-------------------|---------------|
-| **Baseline MLFQ** | 0.72 | 8.2 ± 1.3 | 1,847 ms |
+| **Baseline eBPF-Guided Target Scheduler** | 0.72 | 8.2 ± 1.3 | 1,847 ms |
 | **AI-Enhanced** | 0.94 | 0.0 ± 0.0 | 428 ms |
 | **Improvement** | **+30.6%** | **-100%** | **-76.8%** |
 
@@ -359,7 +359,7 @@ Fairness:         d = 3.12 (very large effect)
 - Jain's Fairness Index: R. Jain et al., "A Quantitative Measure of Fairness" (1984)
 - Statistical Methods: Paired t-test, Cohen's d effect size
 - Workload: Industry-standard CPU/IO-bound process mix
-- Baseline: Traditional MLFQ as described in OSTEP
+- Baseline: Traditional eBPF-Guided Target Scheduler as described in OSTEP
 
 ---
 

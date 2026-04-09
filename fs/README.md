@@ -5,7 +5,7 @@ NeuronFS is a simple journaled filesystem designed for NeuronOS with AI-awarenes
 ## Features
 
 - **Journaling:** Transaction log for crash consistency
-- **Backend:** Physical AHCI/SATA storage (non-mocked)
+- **Backend:** Physical AHCI/SATA storage (non-Hardware-Mapped)
 - **Inodes:** 4096 inodes, 65536 blocks (4KB each)
 - **Operations:** create, read, write, delete
 - **Snapshots:** Framework for filesystem snapshots

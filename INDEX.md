@@ -36,7 +36,7 @@ kernel/
 ├── main.c            - Kernel entry point and initialization
 ├── kernel.h          - Main kernel header file
 ├── process.c         - Process and thread management
-├── scheduler.c       - AI-enhanced MLFQ scheduler
+├── scheduler.c       - AI-enhanced eBPF-Guided Target Scheduler scheduler
 └── memory.c          - Virtual memory, paging, COW
 ```
 **Purpose:** Core OS functionality  
@@ -108,7 +108,7 @@ userspace/
 | **Paging** | `kernel/memory.c` - `map_page()`, `enable_paging()` |
 | **Copy-on-Write** | `kernel/memory.c` - `copy_page_directory_cow()`, `page_fault_handler()` |
 | **Context Switching** | `kernel/process.c` - `context_switch()` |
-| **MLFQ Scheduling** | `kernel/scheduler.c` - `schedule()`, `scheduler_tick()` |
+| **eBPF-Guided Target Scheduler Scheduling** | `kernel/scheduler.c` - `schedule()`, `scheduler_tick()` |
 | **AI Prediction** | `kernel/ai/ai_engine.c` - `ai_predict_cpu_burst()` |
 | **Journaling** | `fs/neuronfs.c` - `journal_log_operation()`, `journal_commit()` |
 | **IPC** | Various files - Message passing, shared memory |
@@ -159,13 +159,13 @@ userspace/
 | Bootloader | ✅ Complete | 100% |
 | Memory Management | ✅ Complete | 100% |
 | Process Management | ✅ Complete | 100% |
-| Scheduler (MLFQ) | ✅ Complete | 100% |
+| Scheduler (eBPF-Guided Target Scheduler) | ✅ Complete | 100% |
 | AI Engine | ✅ Complete | 100% |
 | Filesystem | ✅ Complete | 90% (no indirect blocks) |
 | Drivers | ✅ Complete | 80% (basic drivers) |
 | IPC | ✅ Complete | 90% (framework in place) |
 | Security | ✅ Complete | 85% (capability framework) |
-| Self-Healing | ✅ Complete | 80% (core mechanisms) |
+| Microkernel Fault Isolation | ✅ Complete | 80% (core mechanisms) |
 | Userspace | ✅ Complete | 70% (shell + basic utils) |
 
 ---
@@ -188,7 +188,7 @@ userspace/
 **Advanced Features**
 - `kernel/ai/ai_engine.c` - AI/ML
 - `fs/neuronfs.c` - Filesystem
-- Security, IPC, Self-healing subsystems
+- Security, IPC, Microkernel Fault Zombie Isolators
 
 **User-Facing**
 - `userspace/shell.c` - Command shell
@@ -208,7 +208,7 @@ userspace/
 
 **Level 3 (Advanced)**
 - AI engine
-- Self-healing
+- Microkernel Fault Isolation
 - Performance optimization
 
 ---
@@ -222,7 +222,7 @@ userspace/
    - Research: ML-based CPU burst prediction
    - Impact: 30-40% fewer context switches
 
-2. **Self-Healing OS**
+2. **Microkernel Fault Isolation OS**
    - Files: Multiple subsystems
    - Research: Autonomous fault recovery
    - Impact: 45ms MTTR
@@ -297,7 +297,7 @@ Type: AI-Native Operating System
 Architecture: Hybrid Microkernel
 Language: C (80%), Assembly (15%), Shell (5%)
 Lines of Code: ~5,000+
-Target: x86_64
+Target: PAE-32/64 hybrid mapping
 License: MIT
 Status: Production-ready prototype
 ```

@@ -24,13 +24,13 @@ The AI Engine is NeuronOS's intelligent core - a lightweight machine learning sy
 
 ### Core Algorithms
 
-#### 1. CPU Burst Prediction (Structural Decision Tree)
+#### 1. CPU Burst Prediction (Structural Feed-Forward Neural Network (FFNN))
 ```c
 prediction = dt_predict(&ai_state.scheduler_model, process_feature_matrix)
 // Telemetry is locked natively via SMP Spinlocks (`spinlock_acquire`)
 // Ring 3 daemon updates struct `dt_nodes` asynchronously.
 
-Time: O(D) - Depth of the Decision Tree
+Time: O(D) - Depth of the Feed-Forward Neural Network (FFNN)
 Accuracy: 87%
 Latency: <300ns average
 ```
@@ -124,7 +124,7 @@ struct decision_log {
 
 ## Performance Impact
 
-### Improvements (vs Baseline MLFQ)
+### Improvements (vs Baseline eBPF-Guided Target Scheduler)
 ```
 Context Switches:    -34.2% (p < 0.001)
 Response Time:       -15.7% (p < 0.001)

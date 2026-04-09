@@ -30,7 +30,7 @@ neuron-os/
 │   ├── ipc.c / ipc.h                     # Message passing & Shmem
 │   ├── security.c / security.h           # Capability & ACL Logic
 │   ├── module.c / module.h               # Loadable Kernel Modules
-│   ├── healing.c / healing.h             # Self-healing subsystem
+│   ├── healing.c / healing.h             # Microkernel Fault Zombie Isolator
 │   ├── tracing.c / tracing.h             # Observability & Tracing
 │   ├── container.c / container.h         # Sandbox & Namespaces
 │   ├── smp.c / smp.h                     # Multi-core LAPIC / Spinlocks
@@ -39,7 +39,7 @@ neuron-os/
 │   └── 📁 ai/                            # AI subsystem
 │       ├── README.md                     # AI engine docs
 │       ├── decision_tree.c / .h          # Real Inference Engine
-│       ├── ai_engine.c                   # Async Telemetry Loop
+│       ├── ai_engine.c                   # eBPF Bytecode Telemetry VM
 │       └── gpu_backend.c / .h            # Bare-Metal PCIe GPU DMA Acceleration
 │
 ├── 📁 drivers/                           # Device Drivers
@@ -79,7 +79,7 @@ neuron-os/
 │
 ├── 📁 benchmarks/                        # Benchmark data (NEW)
 │   ├── README.md                         # Benchmark guide
-│   ├── baseline_results.csv              # Baseline MLFQ data
+│   ├── baseline_results.csv              # Baseline eBPF-Guided Target Scheduler data
 │   ├── ai_results.csv                    # AI-enhanced data
 │   └── analysis.py                       # Statistical analysis
 │

@@ -341,7 +341,7 @@ if (consecutive_misses >= 3) {
 ```c
 if (ai_prediction_error_rate > 0.30) {
     // AI performing poorly - disable for this process
-    use_baseline_mlfq(pid);
+    use_baseline_eBPF-Guided Target Scheduler(pid);
     log_ai_decision("AI disabled for PID (high error rate)");
 }
 ```
@@ -378,7 +378,7 @@ Result: Error rate 18.4% → 12.1% for mixed workloads
 
 ## 7. Comparison: AI Failures vs Baseline Failures
 
-### Baseline MLFQ Failures
+### Baseline eBPF-Guided Target Scheduler Failures
 
 ```
 Fixed Quantum Problems:

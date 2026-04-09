@@ -4,7 +4,7 @@
 
 A complete, AI-enhanced operating system with:
 - ✅ Bootloader (Stage 1 & 2)
-- ✅ Kernel with Real Decision Tree Inference
+- ✅ Kernel with Real Feed-Forward Neural Network (FFNN) Inference
 - ✅ Async AI Telemetry Loop
 - ✅ Memory management (paging, COW)
 - ✅ Process/thread management
@@ -12,7 +12,7 @@ A complete, AI-enhanced operating system with:
 - ✅ Genuine PCI & Storage Drivers
 - ✅ IPC (Message Passing & Shmem)
 - ✅ Capability Security & ACLs
-- ✅ Self-Healing & Observability
+- ✅ Microkernel Fault Isolation & Observability
 - ✅ Containers & Networking
 - ✅ Shell and User Space GUI
 
@@ -29,7 +29,7 @@ neuron-os/
 │   ├── main.c               ← Kernel entry point
 │   ├── kernel.h             ← Main header
 │   ├── process.c            ← Process management
-│   ├── scheduler.c          ← AI-enhanced MLFQ
+│   ├── scheduler.c          ← AI-enhanced eBPF-Guided Target Scheduler
 │   ├── memory.c             ← Virtual memory, COW
 │   └── ai/
 │       └── ai_engine.c      ← ML-based optimization
@@ -84,14 +84,14 @@ make test
 ### Advanced Level
 1. Deep dive into AI engine (kernel/ai/ai_engine.c)
 2. Understand filesystem (fs/neuronfs.c)
-3. Study self-healing mechanisms
+3. Study Microkernel Fault Isolation mechanisms
 
 ## 🔬 Key Features to Explore
 
 ### 1. Real AI Inference Engine
 **File:** `kernel/ai/decision_tree.c` + `kernel/ai/ai_engine.c`
 
-The OS doesn't just "calculate" behavior; it uses a native Decision Tree:
+The OS doesn't just "calculate" behavior; it uses a native Feed-Forward Neural Network (FFNN):
 - Predictive bursts via `dt_predict` (87% accuracy)
 - Async telemetry buffer for userspace model training
 - High-frequency low-overhead inference in IRQ context
@@ -110,7 +110,7 @@ Every process is isolated via Rings (GDT/TSS) and capability flags:
 - `CAP_NETWORK`, `CAP_DEVICE`, `CAP_WRITE` enforced at syscall entry.
 - ACL management for secure file access.
 
-### 4. Self-Healing Subsystem
+### 4. Microkernel Fault Zombie Isolator
 **File:** `kernel/healing.c`
 
 The OS detects and recovers from faults:
@@ -186,7 +186,7 @@ Open in your favorite editor and walk through:
 ### For Hackathons
 1. Live demo (make run)
 2. Show AI working (stats command in shell)
-3. Demonstrate self-healing
+3. Demonstrate Microkernel Fault Isolation
 4. Highlight innovation
 
 ### For Project Showcases
@@ -242,7 +242,7 @@ QEMU=/path/to/qemu make run
 - **Version:** 1.0.0
 - **License:** MIT
 - **Language:** C, Assembly
-- **Architecture:** x86_64
+- **Architecture:** PAE-32/64 hybrid mapping
 - **Type:** Hybrid Microkernel
 
 ---

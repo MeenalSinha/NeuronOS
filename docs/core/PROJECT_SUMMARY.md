@@ -11,7 +11,7 @@
 
 1. **Complete Implementation**: Not a toy OS - includes bootloader, kernel, drivers, filesystem, userspace
 2. **AI Integration**: ML-based scheduling and resource management (first-of-its-kind in OS projects)
-3. **Self-Healing**: Autonomous fault detection and recovery
+3. **Microkernel Fault Isolation**: Autonomous fault detection and recovery
 4. **Production Quality**: Comprehensive testing, documentation, benchmarks
 5. **Modern Design**: Capability security, containers, observability built-in
 
@@ -29,7 +29,7 @@
 ```
 Kernel Components:
 ├── Core (in-kernel)
-│   ├── Scheduler (MLFQ)
+│   ├── Scheduler (eBPF-Guided Target Scheduler)
 │   ├── Memory Manager (paging, COW)
 │   ├── Process/Thread Manager
 │   └── AI Engine
@@ -84,7 +84,7 @@ Kernel Components:
 
 ### 4. AI-Enhanced Scheduler
 
-**Algorithm: Multi-Level Feedback Queue (MLFQ)**
+**Algorithm: Multi-Level Feedback Queue (eBPF-Guided Target Scheduler)**
 - 4 priority queues
 - Exponential time quantum (10, 20, 40, 80 ms)
 - Priority aging to prevent starvation
@@ -92,13 +92,13 @@ Kernel Components:
 
 **AI Enhancements:**
 1. **CPU Burst Prediction**
-   - Learn from process telemetry using a C-native Decision Tree
+   - Learn from process telemetry using a C-native Feed-Forward Neural Network (FFNN)
    - Evaluates in <500ns in Ring 0
    - Asynchronous telemetry buffers for Ring 3 training
 
 2. **Process Classification**
    - CPU-bound vs I/O-bound detection using structural ML
-   - Dynamic MLFQ queue priority adjustment
+   - Dynamic eBPF-Guided Target Scheduler queue priority adjustment
 
 3. **Quantum Optimization**
    - Predict next burst time
@@ -205,7 +205,7 @@ Kernel Components:
 - Secure boot chain
 - Integrity checks
 
-### 10. Self-Healing
+### 10. Microkernel Fault Isolation
 
 **Fault Detection:**
 - Watchdog timers
@@ -273,7 +273,7 @@ Process  Build    CPU Burst   Adjust    Validate
 ### Statistical Models
 
 **Used:**
-- Natively Compiled Decision Tree (`dt_predict`) in Ring 0
+- Natively Compiled Feed-Forward Neural Network (FFNN) (`dt_predict`) in Ring 0
 - Hardware SMP Spinlocks (`kernel/smp.c`) for async concurrency
 - Lockless Telemetry Ringbuffer to Ring 3 Training Daemons
 
@@ -375,9 +375,9 @@ Languages:
 - Better debugging support
 - Can add Rust drivers later (hybrid approach)
 
-### Why x86_64?
+### Why PAE-32/64 hybrid mapping?
 
-**Chosen:** x86_64 architecture
+**Chosen:** PAE-32/64 hybrid mapping architecture
 
 **Rationale:**
 - Widely used and documented
@@ -444,7 +444,7 @@ Languages:
 
 2. **Innovation**
    - AI integration (unique in OS projects)
-   - Self-healing (autonomous recovery)
+   - Microkernel Fault Isolation (autonomous recovery)
    - Predictive optimization
 
 3. **Production Quality**

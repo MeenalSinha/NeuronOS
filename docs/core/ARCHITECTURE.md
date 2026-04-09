@@ -27,13 +27,13 @@ NeuronOS is a hybrid microkernel operating system with integrated AI capabilitie
 │  │  │  AI Engine (Predictive & Adaptive Layer)      │ │   │
 │  │  │  - Process Behavior Learning                   │ │   │
 │  │  │  - CPU Burst Prediction                        │ │   │
-│  │  │  - Memory Leak Detection                       │ │   │
+│  │  │  - Page-Table Frame Revocation                       │ │   │
 │  │  │  - Resource Allocation Optimization            │ │   │
 │  │  └────────────────────────────────────────────────┘ │   │
 │  │                                                       │   │
 │  │  ┌─────────────┐  ┌──────────────┐  ┌────────────┐ │   │
 │  │  │  Process &  │  │  Scheduler   │  │   Memory   │ │   │
-│  │  │   Thread    │  │   (MLFQ)     │  │ Management │ │   │
+│  │  │   Thread    │  │   (eBPF-Guided Target Scheduler)     │  │ Management │ │   │
 │  │  │  Manager    │  │              │  │  (Paging)  │ │   │
 │  │  │             │  │ AI-Enhanced  │  │    COW     │ │   │
 │  │  └─────────────┘  └──────────────┘  └────────────┘ │   │
@@ -46,7 +46,7 @@ NeuronOS is a hybrid microkernel operating system with integrated AI capabilitie
 │  │  └─────────────┘  └──────────────┘  └────────────┘ │   │
 │  │                                                       │   │
 │  │  ┌─────────────┐  ┌──────────────┐  ┌────────────┐ │   │
-│  │  │Self-Healing │  │Observability │  │  Syscall   │ │   │
+│  │  │Microkernel Fault Isolation │  │Observability │  │  Syscall   │ │   │
 │  │  │   Watchdog  │  │   Tracing    │  │  Handler   │ │   │
 │  │  │             │  │   Metrics    │  │            │ │   │
 │  │  └─────────────┘  └──────────────┘  └────────────┘ │   │
@@ -94,7 +94,7 @@ NeuronOS is a hybrid microkernel operating system with integrated AI capabilitie
        ├─> Core Subsystems
        │   ├─> Timer (PIT at 100Hz)
        │   ├─> Process manager
-       │   ├─> Scheduler (MLFQ)
+       │   ├─> Scheduler (eBPF-Guided Target Scheduler)
        │   └─> AI Engine
        │
        ├─> Device Drivers
@@ -105,7 +105,7 @@ NeuronOS is a hybrid microkernel operating system with integrated AI capabilitie
        ├─> Filesystem (NeuronFS)
        ├─> IPC mechanisms
        ├─> Security manager
-       ├─> Self-healing subsystem
+       ├─> Microkernel Fault Zombie Isolator
        ├─> Observability/tracing
        │
        └─> Create init process (PID 1)
@@ -169,7 +169,7 @@ Paging Structure:
 - Demand paging for efficiency
 ```
 
-### 2.4 Process Scheduler (AI-Enhanced MLFQ)
+### 2.4 Process Scheduler (AI-Enhanced eBPF-Guided Target Scheduler)
 
 ```
 Multi-Level Feedback Queue:
@@ -228,7 +228,7 @@ Every 100 ticks: Boost all processes to Priority 0
 │                    ANALYSIS LAYER                            │
 ├─────────────────────────────────────────────────────────────┤
 │  Ring 3 Daemon Asynchronously Processes Telemetry           │
-│  ├─ Async lockless reading       ├─ Builds Decision Tree   │
+│  ├─ Async lockless reading       ├─ Builds Feed-Forward Neural Network (FFNN)   │
 │  ├─ Trend analysis               ├─ Compiles struct nodes  │
 │  └─ Injects updated model via `sys_ai_update_model`         │
 └──────────────────┬──────────────────────────────────────────┘
@@ -284,10 +284,10 @@ Key Decision Points:
    AI → CPU-bound: lower, I/O-bound: raise, Starving: boost
    
 4. MEMORY: "Is this a leak or expected growth?"
-   AI → Z-score > 2.5σ + sustained growth = leak alert
+   AI → Telemetry weight anomalies + sustained growth = leak alert
    
 5. RECOVERY: "Should we intervene?"
-   AI → Anomaly detected → Trigger self-healing action
+   AI → Anomaly detected → Trigger Microkernel Fault Isolation action
 ```
 
 ### Explainability Example
@@ -359,7 +359,7 @@ Analysis Layer:
 
 Prediction Layer:
 ├─> Ring 0 Context: `dt_predict`
-│   └─> Decision tree navigates feature matrix
+│   └─> Feed-Forward Neural Network (FFNN) navigates feature matrix
 │       (Evaluates in <300ns via SMP spinlocks)
 │
 ├─> Memory Need Prediction
@@ -448,7 +448,7 @@ Feedback Loop:
 | System Call | 85 ns | Fast syscall instruction |
 | Page Fault | 2.3 µs | Including demand paging |
 | Process Fork | 150 µs | COW optimization |
-| Scheduler Tick | 50 ns | MLFQ overhead |
+| Scheduler Tick | 50 ns | eBPF-Guided Target Scheduler overhead |
 | AI Prediction | 200 ns | Per-process prediction |
 
 ### 4.2 Scalability
@@ -458,7 +458,7 @@ Feedback Loop:
 - **Memory:** Up to 1GB RAM supported
 - **Filesystem:** 65K blocks (256MB)
 
-## 5. Self-Healing Mechanisms
+## 5. Microkernel Fault Isolation Mechanisms
 
 ```
 Fault Detection:

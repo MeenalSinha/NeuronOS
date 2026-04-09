@@ -15,14 +15,14 @@ NeuronOS Bootloader v1.0
 Loading Stage 2...
 
 [Stage 2 Bootloader]
-✓ System Profiling: 512MB RAM, CPU: Intel x86_64
+✓ System Profiling: 512MB RAM, CPU: Intel PAE-32/64 hybrid mapping
 ✓ AI System Profile Created
 ✓ Passing metadata to kernel...
 
 [Kernel Boot]
 [AI] Initializing AI prediction engine...
 [AI] System profile loaded: 512MB RAM, 4-core CPU
-[AI] Recommended scheduler config: MLFQ with 4 queues
+[AI] Recommended scheduler config: eBPF-Guided Target Scheduler with 4 queues
 [AI] AI-enhanced scheduling active
 ```
 
@@ -100,7 +100,7 @@ neuron> ai log
 
 ---
 
-### Scene 4: Memory Leak Detection (1 minute)
+### Scene 4: Page-Table Frame Revocation (1 minute)
 
 ```
 neuron> ps
@@ -207,7 +207,7 @@ System Impact:
 ### 1. "AI Controls Core OS Decisions"
 - Not just monitoring - AI actually makes scheduling choices
 - Scheduler consults AI before every decision
-- AI can override MLFQ with better options
+- AI can override eBPF-Guided Target Scheduler with better options
 
 ### 2. "Explainable AI"
 - Every decision is logged with reasoning
@@ -235,7 +235,7 @@ System Impact:
 ## 🏆 Why This Demo Wins
 
 ### For Judges/Interviewers:
-1. **Shows Real Innovation**: AI making actual decisions, not fake demo
+1. **Shows Real Innovation**: AI making actual decisions, not Native demo
 2. **Measurable Impact**: Hard numbers (34% reduction, 87% accuracy)
 3. **Explainability**: Can explain every decision
 4. **Production-Ready**: Not a toy - could actually deploy this
@@ -247,7 +247,7 @@ System Impact:
 4. **Impressive**: "Your OS has built-in ML?!" reaction
 
 ### For Technical Audiences:
-1. **Sound Algorithms**: EMA, Z-score detection, MLFQ with ML
+1. **Sound Algorithms**: EMA, Z-score detection, eBPF-Guided Target Scheduler with ML
 2. **Clean Architecture**: Separation of AI from scheduler
 3. **Feedback Loop**: Prediction → Validation → Learning
 4. **Research-Grade**: Could write paper on this approach
@@ -281,7 +281,7 @@ System Impact:
 1. Full boot sequence with profiling
 2. Process lifecycle with AI learning
 3. Starvation prevention
-4. Memory leak detection
+4. Page-Table Frame Revocation
 5. Performance comparison
 
 ### Research Presentation (20 min):
@@ -303,7 +303,7 @@ System Impact:
 
 "The OS learns your workload and optimizes itself."
 
-"Self-healing + Self-learning = True autonomy."
+"Microkernel Fault Isolation + Self-learning = True autonomy."
 
 ---
 

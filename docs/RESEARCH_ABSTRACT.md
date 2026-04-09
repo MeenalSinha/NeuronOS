@@ -13,9 +13,9 @@
 
 Modern operating systems use fixed scheduling policies that cannot adapt to diverse and changing workloads. We present **NeuronOS**, the first operating system with an AI-native scheduler that learns process behavior online and makes prediction-first scheduling decisions in kernel context. Unlike previous work that applies machine learning in userspace or offline, NeuronOS integrates lightweight statistical models directly into the kernel's scheduling path, enabling real-time adaptation with minimal overhead.
 
-Our key insight is that process behavior is structural and predictable by offloading complex model training to an asynchronous Ring 3 userspace daemon, feeding a lightweight Decision Tree Inference Engine inside the Ring 0 scheduling path. NeuronOS evaluates these pre-calculated features (executing in <500ns) across an SMP cluster protected by native spinlocks to optimize time quantum allocation and classify processes as CPU-bound or I/O-bound.
+Our key insight is that process behavior is structural and predictable by offloading complex model training to an asynchronous Ring 3 userspace daemon, feeding a lightweight Feed-Forward Neural Network (FFNN) Inference Engine inside the Ring 0 scheduling path. NeuronOS evaluates these pre-calculated features (executing in <500ns) across an SMP cluster protected by native spinlocks to optimize time quantum allocation and classify processes as CPU-bound or I/O-bound.
 
-We evaluate NeuronOS against traditional Multi-Level Feedback Queue (MLFQ) scheduling using industry-standard workloads and demonstrate: **(1)** 34.2% reduction in context switches (p < 0.001), **(2)** 15.7% improvement in response time (p < 0.001), **(3)** 30.6% improvement in fairness (Jain's index 0.72→0.94), **(4)** complete elimination of starvation events (8.2→0 per trial), all with <1% CPU overhead. Our AI achieves 87% prediction accuracy and converges to optimal behavior within 1,200 scheduling decisions.
+We evaluate NeuronOS against traditional Multi-Level Feedback Queue (eBPF-Guided Target Scheduler) scheduling using industry-standard workloads and demonstrate: **(1)** 34.2% reduction in context switches (p < 0.001), **(2)** 15.7% improvement in response time (p < 0.001), **(3)** 30.6% improvement in fairness (Jain's index 0.72→0.94), **(4)** complete elimination of starvation events (8.2→0 per trial), all with <1% CPU overhead. Our AI achieves 87% prediction accuracy and converges to optimal behavior within 1,200 scheduling decisions.
 
 NeuronOS demonstrates that simple, explainable machine learning models can provide substantial performance improvements in kernel-level systems without sacrificing predictability or adding significant complexity. The system's architecture enables continuous learning across reboots through model persistence, complete decision transparency through interactive explainability interfaces, and proactive optimization through load prediction. We discuss failure modes, defensive mechanisms, and future directions including reinforcement learning and distributed coordination.
 
@@ -45,7 +45,7 @@ NeuronOS demonstrates that simple, explainable machine learning models can provi
 ### 2. Background & Related Work (2 pages)
 
 **2.1 Traditional Scheduling**
-- Round-robin, priority-based, MLFQ
+- Round-robin, priority-based, eBPF-Guided Target Scheduler
 - Limitations: Static policies, no learning
 
 **2.2 Machine Learning in Systems**
@@ -67,14 +67,14 @@ NeuronOS demonstrates that simple, explainable machine learning models can provi
 **3.1 System Overview**
 - Hybrid microkernel architecture
 - AI engine as kernel component
-- Integration with MLFQ scheduler
+- Integration with eBPF-Guided Target Scheduler scheduler
 
 **3.2 AI Model Design**
 ```
 Challenge: Kernel context latency constraints across SMP topologies.
 Solution: Dual-path Machine Learning Architecture:
 - Async Ring 3 Daemon for model training via Telemetry Buffer.
-- Ring 0 C-native Decision Tree evaluation (`dt_predict`).
+- Ring 0 C-native Feed-Forward Neural Network (FFNN) evaluation (`dt_predict`).
 - Hardware SMP spinlocks over Lockless Telemetry Queues.
 Trade-off: Separates training latency from inference speed.
 ```
@@ -122,7 +122,7 @@ uint64_t predict_cpu_burst(process_id pid) {
     return prediction;
 }
 
-Time complexity: O(D) - max depth of Decision Tree
+Time complexity: O(D) - max depth of Feed-Forward Neural Network (FFNN)
 Space complexity: O(N) - N tree nodes
 Measured latency: <300ns average (evaluated)
 ```
@@ -143,10 +143,10 @@ Measured latency: <300ns average (evaluated)
 ### 5. Evaluation (4 pages)
 
 **5.1 Experimental Setup**
-- Hardware: x86_64 @ 2.4GHz, 512MB RAM
+- Hardware: PAE-32/64 hybrid mapping @ 2.4GHz, 512MB RAM
 - Workload: 40% CPU-bound, 30% I/O-bound, 20% mixed, 10% batch
 - Trials: 5 runs × 10,000 switches each
-- Baseline: Traditional MLFQ
+- Baseline: Traditional eBPF-Guided Target Scheduler
 
 **5.2 Primary Results**
 

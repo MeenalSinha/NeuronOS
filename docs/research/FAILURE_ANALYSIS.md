@@ -37,9 +37,9 @@ Consequence: 3 extra context switches
 ```
 
 **Why AI Failed:**
-1. **Insufficient history:** Asynchronous training daemon took too long to build a reliable Decision Tree.
+1. **Insufficient history:** Asynchronous training daemon took too long to build a reliable Feed-Forward Neural Network (FFNN).
 2. **Non-stationary workload:** Scene changes are unpredictable.
-3. **Simple tree depth:** Small pre-compiled Decision Tree nodes cannot handle highly nuanced branching patterns.
+3. **Simple tree depth:** Small pre-compiled Feed-Forward Neural Network (FFNN) nodes cannot handle highly nuanced branching patterns.
 
 **What Happened:**
 - AI predicted 25ms based on average
@@ -138,7 +138,7 @@ Result: CATASTROPHIC FAILURE
 
 **Why AI Failed:**
 1. **Adversarial design:** Intentionally misleading training data sent via the Ring 3 Telemetry buffer.
-2. **Model inertia:** 20 samples of I/O heavily weighted the Decision Tree towards fast classification.
+2. **Model inertia:** 20 samples of I/O heavily weighted the Feed-Forward Neural Network (FFNN) towards fast classification.
 3. **Training Latency:** Async retraining in userspace takes time to inject `sys_ai_update_model`.
 
 **Impact:**
@@ -186,7 +186,7 @@ Adversarial:  47.2%  (intentionally deceptive)
 
 ### Root Cause #1: Model Simplicity
 
-**Problem:** Fast, constrained Decision Tree structures (limited depth) cannot capture highly complex patterns.
+**Problem:** Fast, constrained Feed-Forward Neural Network (FFNN) structures (limited depth) cannot capture highly complex patterns.
 
 **Example:**
 ```
@@ -199,7 +199,7 @@ Saturday arrives → misclassifies I/O activity
 ```
 
 **Solution:**
-- ✅ Current: Ring 0 Decision Tree (fast, low SMP lock contention)
+- ✅ Current: Ring 0 Feed-Forward Neural Network (FFNN) (fast, low SMP lock contention)
 - 🔮 Future: Time-aware models, structural pattern detection
 - ⚖️ Trade-off: Complexity vs IRQ context overhead
 
@@ -341,7 +341,7 @@ if (consecutive_misses >= 3) {
 ```c
 if (ai_prediction_error_rate > 0.30) {
     // AI performing poorly - disable for this process
-    use_baseline_mlfq(pid);
+    use_baseline_eBPF-Guided Target Scheduler(pid);
     log_ai_decision("AI disabled for PID (high error rate)");
 }
 ```
@@ -378,7 +378,7 @@ Result: Error rate 18.4% → 12.1% for mixed workloads
 
 ## 7. Comparison: AI Failures vs Baseline Failures
 
-### Baseline MLFQ Failures
+### Baseline eBPF-Guided Target Scheduler Failures
 
 ```
 Fixed Quantum Problems:

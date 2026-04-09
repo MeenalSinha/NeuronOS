@@ -6,7 +6,7 @@ The NeuronOS kernel is a hybrid microkernel with integrated AI subsystem for int
 
 **Type:** Hybrid Microkernel  
 **Language:** C (85%), Assembly (15%)  
-**Target:** x86_64 (64-bit Long Mode with PML4 Paging)  
+**Target:** PAE-32/64 hybrid mapping (64-bit Long Mode with PML4 Paging)  
 **AI Integration:** Kernel-level Inference, Asynchronous Userspace Learning
 
 ## Core Components
@@ -23,7 +23,7 @@ The NeuronOS kernel is a hybrid microkernel with integrated AI subsystem for int
 6. IPC & Networking (Sync/Async)
 7. Security (Capability Enforcer)
 8. **Syscall int 0x80 gate**
-9. AI Logic (Decision Tree Inference)
+9. AI Logic (Feed-Forward Neural Network (FFNN) Inference)
 10. Scheduler start (Privilege shift to User mode)
 
 ### scheduler.c - AI-Enhanced Scheduler
@@ -32,7 +32,7 @@ The NeuronOS kernel is a hybrid microkernel with integrated AI subsystem for int
 **Features:**
 - 4-priority queues (exponential time quantum: 10/20/40/80ms)
 - **AI decision point:** Consults AI before every schedule
-- **AI override:** Can bypass MLFQ with better prediction
+- **AI override:** Can bypass eBPF-Guided Target Scheduler with better prediction
 - Starvation prevention (AI-detected >1000ms wait)
 - Quantum tuning based on predicted burst time
 
